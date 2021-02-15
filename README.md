@@ -4,4 +4,4 @@ a.	Create a Rest API in python using flask which supports the following operatio
 	3.	Insert, update and select on orders
 	4.	Order history of given customer
 b.	Follow industry standards while writing the code and include basic schema and data validations and also use MVC model and ORM.
-c.	Use github for version control
+c.	Use github for version control.
