@@ -15,14 +15,13 @@ mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
 def get():
-    """This will return home page"""
 
-    return {'status': 'SUCCESS', 'data': 'Hello World!'}
+    return {'status': 'SUCCESS', 'data': 'Hello User!'}
 
 
 @app.route('/customers/<customer_id>', methods=['GET', 'PUT'])
 def index(customer_id):
-    """This part will do select and update operation on customers table """
+    """For select and update operation on customers table """
     cur = mysql.connection.cursor()
     if request.method == 'GET':
         select_query = "select * from Customers ".format(
@@ -30,7 +29,7 @@ def index(customer_id):
         cur.execute(select_query)
         data = cur.fetchall()
         if bool(data):
-            row_headers = [x[0] for x in cur.description]
+            row_headers = [x[0] for x in cur.descrip]
             json_data = []
             for result in data:
                 json_data.append(dict(zip(row_headers, result)))
@@ -82,7 +81,7 @@ def index(customer_id):
 
 @app.route('/customers', methods=['POST'])
 def select():
-    """This part will do insert operation on customers table """
+    """For inserting operation on customers table """
     details = request.get_json()
 
     customers_id = details['CustomerID']
@@ -126,7 +125,7 @@ def select():
 
 @ app.route('/products/<product_id>', methods=['GET', 'PUT'])
 def product(product_id):
-    """This part will do select and update operation on products table """
+    """For select and update operation on products table """
     cur = mysql.connection.cursor()
     if request.method == 'GET':
         select_query = 'select * from Products where ProductID = {} '.format(
@@ -135,7 +134,7 @@ def product(product_id):
             cur.execute(select_query)
             data = cur.fetchall()
             if bool(data):
-                row_headers = [x[0] for x in cur.description]
+                row_headers = [x[0] for x in cur.descrip]
                 json_data = []
                 for result in data:
                     json_data.append(dict(zip(row_headers, result)))
@@ -144,8 +143,6 @@ def product(product_id):
             return ({'status': 'FAILED', 'data': 'No Product Found'
                      }, 404)
         except OSError:
-
-            # Returns a system-related error
 
             return ({'status': 'FAILED',
                      'data': 'Something Wrong! Please retry after sometime.'
@@ -194,7 +191,7 @@ def product(product_id):
 
 @ app.route('/products', methods=['POST'])
 def process():
-    """This part will do insert operation on customers table """
+    """for insert operation on customers table """
     details = request.get_json()
 
     products_id = details['ProductID']
@@ -236,14 +233,14 @@ def process():
 
 @ app.route('/orderhistory/<customer_id>', methods=['GET'])
 def orders(customer_id):
-    """This part will display Order history of given customerid"""
+    """For display Order history of given customerid"""
     query = "select * from Orders where CustomerID = '{}' ".format(customer_id)
     try:
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
         if bool(data):
-            row_headers = [x[0] for x in cur.description]
+            row_headers = [x[0] for x in cur.descrip]
             json_data = []
             for result in data:
                 json_data.append(dict(zip(row_headers, result)))
@@ -251,7 +248,7 @@ def orders(customer_id):
             return (jsonify(json_data), 200)
         return ({'status': 'FAILED', 'data': 'No Orders Found'},
                 404)
-    except OSError:  # Returns a system-related error
+    except OSError: 
 
         return ({'status': 'FAILED',
                  'data': 'Something Wrong! Please retry after sometime.'

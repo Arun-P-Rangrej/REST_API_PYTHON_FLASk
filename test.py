@@ -13,7 +13,7 @@ responce = requests.put(BASE + "customers/ALFKI", {"company_name" : "Alfreds","c
 "postal_code" : "12209","countary" : "Germany","phone" : "030-0074321","fax" : "030-0076545"}
 print(responce)
 input()
-
+#same for product and orders tables
 
 responce = requests.get(BASE + "orderhistory/ANTON")
 print(responce.json())
